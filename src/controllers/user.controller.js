@@ -38,8 +38,17 @@ const { userService } = require("../services");
  * @returns {User | {address: String}}
  *
  */
+
+
 const getUser = catchAsync(async (req, res) => {
-});
+  const userId = req.params.userId;
+  const user = await userService.getUserById(userId);
+  res.status(200).send(user);
+}); 
+
+// const getUser = (req,res)=>{
+
+// }
 
 
 module.exports = {
