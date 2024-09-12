@@ -2,6 +2,7 @@ const express = require("express");
 const validate = require("../../middlewares/validate");
 const userValidation = require("../../validations/user.validation");
 const userController = require("../../controllers/user.controller");
+const auth = require("../../middlewares/auth");
 
 
 const router = express.Router();
@@ -10,6 +11,7 @@ const router = express.Router();
 
 const validateUser = validate(userValidation.getUser)
 
-router.get("/:userId",validateUser, userController.getUser)
+router.get("/:userId",auth,validateUser, userController.getUser)
+
 
 module.exports = router;
