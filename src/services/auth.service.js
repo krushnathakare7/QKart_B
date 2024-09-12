@@ -15,13 +15,33 @@ const bcrypt = require("bcryptjs");
  * @param {string} password
  * @returns {Promise<User>}
  */
+// const loginUserWithEmailAndPassword = async (email, password) => {
+//   const user = await userService.getUserByEmail(email);
+//   console.log(user, ' user from auth service')
+//   if(!user){
+//     throw new ApiError(httpStatus.UNAUTHORIZED, 'No User with this email found')
+//   }
+//   const isPasswordMatch = await bcrypt.compare(password, user.password)
+//   console.log(isPasswordMatch, 'is paass match from auth')
+//   if(!isPasswordMatch){
+//     throw new ApiError(httpStatus.UNAUTHORIZED, 'email or password is incorrect')
+//   }
+
+//   return user;
+  
+  
+// };
+
+
 const loginUserWithEmailAndPassword = async (email, password) => {
-  const user = await userService.getUserByEmail(email);
-  const isPasswordMatch = await bcrypt.compare(password, user.password)
-  if(!user || ! isPasswordMatch){
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'email or password is incorrect')
+  const user = await userService.getUserByEmail(email)
+  console.log(user, 'user from auth service')
+  if(!user || !(await user.isPasswordMatch(password)))
+  {
+    throw new ApiError(httpStatus.UNAUTHORIZED,"Incorrect Credentials")
   }
-  return user;
+  // return {_id:user._id,walletMoney:parseInt(user.walletMoney),name:user.name,email:user.email,password:user.password,address:user.address};
+  return user
 };
 
 module.exports = {

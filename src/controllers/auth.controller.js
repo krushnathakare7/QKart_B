@@ -71,7 +71,7 @@ const login = catchAsync(async (req, res) => {
   const user = await authService.loginUserWithEmailAndPassword(email, password)
   const tokens = await tokenService.generateAuthTokens(user)
 
-   return res.send({user,tokens})
+  res.status(200).json({user,tokens});
 });
 
 module.exports = {

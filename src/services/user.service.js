@@ -23,7 +23,8 @@ const getUserById = async (id)=>{
  */
 
 const getUserByEmail = async (email) => {
-    return User.findOne({email:email})
+   const thUser = User.findOne({email});
+   return thUser;
 }
 
 // TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS - Implement createUser(user)
