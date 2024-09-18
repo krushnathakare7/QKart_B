@@ -5,6 +5,7 @@ const config = require("../config/config");
 const bcrypt = require("bcryptjs");
 
 // TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS - Complete userSchema, a Mongoose schema for "users" collection
+
 const userSchema = mongoose.Schema(
   {
     name: {

@@ -11,7 +11,8 @@ const bcrypt = require("bcryptjs");
  */
 
 const getUserById = async (id)=>{
-    return await User.findById(id);
+    const user = await User.findById(id);
+    return user
 }
 
 // TODO: CRIO_TASK_MODULE_UNDERSTANDING_BASICS - Implement getUserByEmail(email)
@@ -62,8 +63,44 @@ const createUser = async (userBody) => {
     return newUser;
 }
 
+
+// TODO: CRIO_TASK_MODULE_CART - Implement getUserAddressById()
+/**
+ * Get subset of user's data by id
+ * - Should fetch from Mongo only the email and address fields for the user apart from the id
+ *
+ * @param {ObjectId} id
+ * @returns {Promise<User>}
+ */
+const getUserAddressById = async (id) => {
+ 
+    const user = await User.findOne({_id:id}, {email:1,address:1})
+    console.log(user, ' user from get user address by id')
+    if(!user){
+        throw new ApiError(httpStatus.NOT_FOUND, 'user not found')
+    }
+
+    return user
+};
+
+/**
+ * Set user's shipping address
+ * @param {String} email
+ * @returns {String}
+ */
+const setAddress = async (user, newAddress) => {
+  user.address = newAddress;
+  await user.save();
+
+  return user.address;
+};
+
+
 module.exports = {
     getUserById,
     getUserByEmail,
-    createUser
+    createUser,
+    getUserAddressById,
+    setAddress
 }
+

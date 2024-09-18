@@ -35,7 +35,6 @@ const bcrypt = require("bcryptjs");
 
 const loginUserWithEmailAndPassword = async (email, password) => {
   const user = await userService.getUserByEmail(email)
-  console.log(user, 'user from auth service')
   if(!user || !(await user.isPasswordMatch(password)))
   {
     throw new ApiError(httpStatus.UNAUTHORIZED,"Incorrect Credentials")
