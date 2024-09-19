@@ -52,6 +52,7 @@ const { userService } = require("../services");
  *
  */
 const getUser = catchAsync(async (req, res) => {
+  console.log(req.headers,'req headers')
   let data;
 
   if(req.query.q === "address"){

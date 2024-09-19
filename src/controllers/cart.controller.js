@@ -1,6 +1,7 @@
 const httpStatus = require("http-status");
 const catchAsync = require("../utils/catchAsync");
 const { cartService } = require("../services");
+const ApiError = require("../utils/ApiError");
 
 /**
  * Fetch the cart details
@@ -81,9 +82,25 @@ const updateProductInCart = catchAsync(async (req, res) => {
   res.status(httpStatus.OK).send(cartData)
 });
 
+/**
+ * Checkout user's cart
+ */
+ const checkout = catchAsync(async (req, res) => {
+  if(!req.headers.authorization){
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'user is not Authorised')
+  }
+ await cartService.checkout(req.user);
+
+ return (
+   res.status(204)
+     .send()
+ );
+});
+
 
 module.exports = {
   getCart,
   addProductToCart,
   updateProductInCart,
+  checkout,
 };
