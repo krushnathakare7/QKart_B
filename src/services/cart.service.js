@@ -229,9 +229,10 @@ const checkout = async (user) => {
  }
 
  user.walletMoney = user.walletMoney - total;
- user.cartItems = []
+ cart.cartItems = []
 
- user.save()
+await user.save()
+await cart.save()
 
 
 

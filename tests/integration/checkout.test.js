@@ -107,8 +107,7 @@ describe("Cart routes", () => {
       // - Cart exists
       // - Length of "cartItems" array is 0
         const dbRes = await Cart.findOne({email:userOne.email})
-        console.log(dbRes)
-        //expect(dbRes.cartItems.length).toBe(0)
+        expect(dbRes.cartItems.length).toBe(0)
     });
   });
 });
